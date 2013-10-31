@@ -4,6 +4,7 @@
   vars:
     ruby_version: 1.9.3
     node_version: 0.10.21
+    local_home: "{{ lookup('env','HOME') }}"
 
   tasks:
   - name: Install wget
@@ -37,5 +38,5 @@
     shell: source ~/.nvm/nvm.sh && nvm install {{node_version}} && nvm alias default {{node_version}} creates=~/.nvm/alias/default
 
   - name: Install DCD
-    shell: source ~/.nvm/nvm.sh && npm install dcd -g creates=~/.nvm/v{{node_version}}/lib/node_modules/dcd
+    npm: executable={{local_home}}/.nvm/v{{node_version}}/bin/npm name=dcd global=yes
 

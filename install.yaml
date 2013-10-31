@@ -10,8 +10,30 @@
   - name: Install jq
     homebrew: name=jq state=present
 
+  - name: Install mercurial
+    homebrew: name=mercurial state=present
+
   - name: Creates .ssh folder
     shell: mkdir ~/.ssh creates=~/.ssh
 
   - name: Install Vagrant Insecure Private Key
     copy: src=./files/vagrant_rsa dest=~/.ssh/vagrant_rsa mode=0600
+
+  - name: Install profile.d scripts
+    shell: rsync -a .profile.d ~/
+
+  - name: Install dotfiles
+    shell: cp dotfiles/.[^.]* ~
+
+  - name: Install RVM
+    shell: curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3 creates=~/.rvm/scripts/rvm
+
+  - name: Install NVM
+    git: repo=https://github.com/creationix/nvm.git dest=~/.nvm update=no
+
+  - name: Install Node
+    shell: source ~/.nvm/nvm.sh && nvm install 0.10.21 && nvm alias default 0.10.21 creates=~/.nvm/alias/default
+
+  - name: Install DCD
+    shell: source ~/.nvm/nvm.sh && npm install dcd -g creates=~/.nvm/v0.10.21/lib/node_modules/dcd
+

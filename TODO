@@ -1,7 +1,4 @@
 TODO
 
-rvm/ruby
-nvm/node.js
-dcd
 gem install terminal-notifier
 grails.sh

@@ -1,0 +1,12 @@
+[user]
+	name = Deluan
+	email = deluan@thoughtworks.com
+
+[push]
+	default = simple
+
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	pr = pull --rebase

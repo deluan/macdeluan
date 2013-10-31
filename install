@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Install HomeBrew
+ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+
+# Install Ansible
+brew install ansible
+
+ansible-playbook install.yaml

@@ -9,3 +9,9 @@
 
   - name: Install jq
     homebrew: name=jq state=present
+
+  - name: Creates .ssh folder
+    shell: mkdir ~/.ssh creates=~/.ssh
+
+  - name: Install Vagrant Insecure Private Key
+    copy: src=./files/vagrant_rsa dest=~/.ssh/vagrant_rsa mode=0600

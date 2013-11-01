@@ -3,7 +3,7 @@ alias webserver='python -m SimpleHTTPServer'
 alias st='stree'
 
 export PATH=~/bin:/usr/local/bin:$PATH
-export EDITOR='subl -w'
+export EDITOR=vi
 export CLICOLOR=1
 
 export JAVA_OPTS="-Xms256m -Xmx1024m -XX:PermSize=512m -XX:MaxPermSize=512m"

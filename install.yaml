@@ -23,7 +23,7 @@
     copy: src=./files/vagrant_rsa dest=~/.ssh/vagrant_rsa mode=0600
 
   - name: Install profile.d scripts
-    shell: rsync -a .profile.d ~/
+    shell: rsync -a --delete .profile.d ~/
 
   - name: Install dotfiles
     shell: cp dotfiles/.[^.]* ~

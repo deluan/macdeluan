@@ -1,4 +1,4 @@
-DCD_EXCLUDES="/*/iPhoto Library*/*:/private:/*/Development/adt-bundle*:/*/Library/Application Support/*:*/node_modules/*:*/Development/*/target/*:/Library:*/Library/Caches:*/Library/Containers"
+DCD_EXCLUDES="/*/iPhoto Library*/*:/private:/*/Development/adt-bundle*:/*/Library/Application Support/*:*/node_modules/*:*/Development/*/target/*:/Library:*/Library/Caches:*/Library/Containers:*/tw/*/target/*"
 DCD=`which dcd` && eval "`${DCD} --install-sh`" &&  eval "`${DCD} --install-sh d`"
 
 eval "`~/Development/dcd.js/bin/dcd --install-sh dcdc`"

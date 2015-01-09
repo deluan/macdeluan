@@ -6,7 +6,7 @@ git config --global color.ui true
 git config --global color.pager true
 git config --global push.default simple
 git config --global core.filemode false
-git config --global core.autocrlf true
+git config --global core.autocrlf input
 git config --global alias.st status
 git config --global alias.co checkout
 git config --global alias.ci commit

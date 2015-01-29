@@ -23,7 +23,7 @@
     copy: src=./files/vagrant_rsa dest=~/.ssh/vagrant_rsa mode=0600
 
   - name: Install profile.d scripts
-    shell: rsync -a --delete .profile.d ~/
+    synchronize: src=.profile.d dest=~/ delete=yes archive=yes
 
   - name: Install dotfiles
     shell: cp dotfiles/.[^.]* ~
@@ -40,3 +40,11 @@
   - name: Install DCD
     npm: executable={{local_home}}/.nvm/v{{node_version}}/bin/npm name=dcd global=yes
 
+  - name: Create bin folder
+    file: path=~/bin state=directory
+
+  - name: Download Grails.sh
+    get_url: url=https://raw.githubusercontent.com/deluan/grails.sh/master/grails dest=~/bin/grails
+
+  - name: Install Grails.sh
+    file: path=~/bin/grails mode=ugo+rx

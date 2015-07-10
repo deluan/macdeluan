@@ -3,6 +3,7 @@
 # Install HomeBrew
 if ! which brew; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  brew tap deluan/tap
 fi
 
 # Install Ansible

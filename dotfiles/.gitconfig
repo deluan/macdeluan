@@ -10,5 +10,21 @@
 	co = checkout
 	ci = commit
 	pr = pull --rebase
-	lg = log --pretty=format:'%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]' --decorate
-	ll = git config --global alias.ll "log --pretty=format:'%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]' --decorate --numstat"
+	lg = log --oneline
+	ll = log --pretty=format:'%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]' --decorate --numstat
+	ls = log --pretty=format:'%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]' --decorate
+	who = "!f() { user=`git config user.name`; email=`git config user.email`; echo \"$user <$email>\"; }; f"
+	undo-last-commit = reset --soft 'HEAD^'
+	serve = daemon --reuseaddr --base-path=. --export-all --verbose
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = true
+	pager = true
+	
+[core]
+	filemode = false
+	autocrlf = input

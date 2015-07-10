@@ -1,0 +1,33 @@
+#!/bin/bash
+
+RED="\033[0;31m"
+YELLOW="\033[0;33m"
+GREEN="\033[0;32m"
+BLUE="\033[0;34m"
+NC="\033[0m"
+
+for i in `find . -name '.git' -type d` ; do
+	(
+    dir=`dirname $i | cut -c3-300`
+    cd $dir
+
+		RES=$(git status 2>/dev/null| grep -E '^(Changes|Changed|Untracked)')
+		STAT=""
+		grep -e 'Untracked' <<<${RES} >/dev/null 2>&1
+		if [ $? -eq 0 ] ; then
+			STAT="${GREEN}[Untracked]${NC}"
+		fi
+		grep -e 'Changed' <<<${RES} >/dev/null 2>&1
+		if [ $? -eq 0 ] ; then
+			STAT="$STAT ${YELLOW}[Modified]${NC}"
+		fi
+		grep -e 'Changes' <<<${RES} >/dev/null 2>&1
+		if [ $? -eq 0 ] ; then
+			STAT="$STAT ${RED}[Staged]${NC}"
+		fi
+
+		if [ -n "$STAT" ] ; then
+			echo -e "$dir: $STAT"
+		fi
+	)
+done

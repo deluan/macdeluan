@@ -2,7 +2,7 @@
 - name: install
   hosts: localhost
   vars:
-    ruby_version: 1.9.3
+    ruby_version: 2.2.2
     node_version: 0.10.21
     local_home: "{{ lookup('env','HOME') }}"
 
@@ -13,8 +13,14 @@
   - name: Install jq
     homebrew: name=jq state=present
 
+  - name: Install git
+    homebrew: name=git state=present
+
   - name: Install mercurial
     homebrew: name=mercurial state=present
+
+  - name: Install gradle
+    homebrew: name=gradle state=present
 
   - name: Creates .ssh folder
     shell: mkdir ~/.ssh creates=~/.ssh
@@ -43,8 +49,5 @@
   - name: Create bin folder
     file: path=~/bin state=directory
 
-  - name: Download Grails.sh
-    get_url: url=https://raw.githubusercontent.com/deluan/grails.sh/master/grails dest=~/bin/grails
-
   - name: Install Grails.sh
-    file: path=~/bin/grails mode=ugo+rx
+    homebrew: name=grails.sh state=present

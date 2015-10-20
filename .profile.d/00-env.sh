@@ -4,6 +4,7 @@ alias st='stree'
 
 export EDITOR=vi
 export CLICOLOR=1
+export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 
 export POSTGRES_APP=/Applications/Postgres93.app/Contents/MacOS
 export JAVA_OPTS="-Xms256m -Xmx1024m -XX:PermSize=128m -XX:MaxPermSize=256m"

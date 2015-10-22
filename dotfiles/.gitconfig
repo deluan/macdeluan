@@ -16,7 +16,7 @@
 	who = "!f() { user=`git config user.name`; email=`git config user.email`; echo \"$user <$email>\"; }; f"
 	undo-last-commit = reset --soft 'HEAD^'
 	serve = daemon --reuseaddr --base-path=. --export-all --verbose
-	master-merge = "!git co dev && git pull --rebase && git push && git co master && git pr && git merge dev && git push && git co dev"
+	alias = config --get-regexp ^alias\\.
 
 [color]
 	diff = auto

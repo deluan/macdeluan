@@ -15,19 +15,25 @@ for i in `find . -name '.git' -type d` ; do
 		STAT=""
 		grep -e 'Untracked' <<<${RES} >/dev/null 2>&1
 		if [ $? -eq 0 ] ; then
-			STAT="${GREEN}[Untracked]${NC}"
+			STAT="${GREEN}U${NC}"
+		else
+			STAT=" "
 		fi
 		grep -e 'Changed' <<<${RES} >/dev/null 2>&1
 		if [ $? -eq 0 ] ; then
-			STAT="$STAT ${YELLOW}[Modified]${NC}"
+			STAT="$STAT${YELLOW}M${NC}"
+		else
+			STAT="$STAT "
 		fi
 		grep -e 'Changes' <<<${RES} >/dev/null 2>&1
 		if [ $? -eq 0 ] ; then
-			STAT="$STAT ${RED}[Staged]${NC}"
+			STAT="$STAT${RED}S${NC}"
+		else
+			STAT="$STAT "
 		fi
 
-		if [ -n "$STAT" ] ; then
-			echo -e "$dir: $STAT"
+		if [[ ! $STAT =~ ^\ +$ ]] ; then
+			echo -e "$STAT : $dir"
 		fi
 	)
 done

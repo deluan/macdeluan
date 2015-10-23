@@ -21,11 +21,12 @@ for i in `find . -name '.git' -type d` ; do
     dir=`dirname $i | cut -c3-300`
     cd $dir
 
-		RES=$(git status 2>/dev/null| grep -E '^(Changes to|Changes not|Untracked)')
+		RES=$(git status 2>/dev/null| grep -E '^(Changes to|Changes not|Untracked|Your branch is ahead)')
 
 		check 'Changes to' $GREEN 'S'
 		check 'Changes not' $YELLOW 'C'
 		check 'Untracked' $RED 'U'
+		check 'Your branch is ahead' $BLUE '↑'
 
 		if [[ ! $STAT =~ ^\ +$ ]] ; then
 			echo -e "$STAT : $dir"

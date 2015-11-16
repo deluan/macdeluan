@@ -29,3 +29,4 @@
 [core]
 	filemode = false
 	autocrlf = input
+	excludesfile = /Users/deluan/.gitignore_global

@@ -1,5 +1,6 @@
 alias ll='ls -la'
 alias webserver='python -m SimpleHTTPServer'
+alias stree='open -a SourceTree'
 alias st='stree'
 
 export EDITOR=vi

@@ -2,7 +2,7 @@
 - name: install
   hosts: localhost
   vars:
-    ruby_version: 2.2.2
+    ruby_version: 2.2.3
     node_version: 0.10.21
     local_home: "{{ lookup('env','HOME') }}"
 

@@ -1,3 +1,6 @@
+# Based on https://gist.github.com/nolanlawson/8694399
+# This version requires gawk
+
 _gradle()
 {
   local cur=${COMP_WORDS[COMP_CWORD]}
@@ -15,10 +18,10 @@ _gradle()
 
   # TODO: include the gradle version in the checksum?  It's kinda slow
   #local gradle_version=$($gradle_cmd --version --quiet --no-color | grep '^Gradle ' | sed 's/Gradle //g')
-  
+
   local gradle_files_checksum='';
   if [[ -f build.gradle ]]; then # top-level gradle file
-    if [[ -x `which md5 2 > /dev/null` ]]; then # mac
+    if [[ -x `which md5 2> /dev/null` ]]; then # mac
       local all_gradle_files=$(find . -name build.gradle 2>/dev/null)
       gradle_files_checksum=$(md5 -q -s "$(md5 -q $all_gradle_files)")
     else # linux
@@ -30,7 +33,11 @@ _gradle()
   if [[ -f $cache_dir/$gradle_files_checksum ]]; then # cached! yay!
     commands=$(cat $cache_dir/$gradle_files_checksum)
   else # not cached! boo-urns!
-    commands=$($gradle_cmd --no-color --quiet tasks | grep ' - ' | awk '{print $1}' | tr '\n' ' ')
+    read -r -d '' FILTER_TASKS << EOF
+    /^To see all/ { exit }
+    / - |^\w+$/ { print \$1 }
+EOF
+    commands=$($gradle_cmd --console=plain --quiet tasks | sed -e '/^$/{n;N;d;}' | gawk "${FILTER_TASKS}" | tr '\n' ' ')
     if [[ ! -z $commands ]]; then
       echo $commands > $cache_dir/$gradle_files_checksum
     fi

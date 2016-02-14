@@ -7,20 +7,9 @@
     local_home: "{{ lookup('env','HOME') }}"
 
   tasks:
-  - name: Install wget
-    homebrew: name=wget state=present
-
-  - name: Install jq
-    homebrew: name=jq state=present
-
-  - name: Install git
-    homebrew: name=git state=present
-
-  - name: Install mercurial
-    homebrew: name=mercurial state=present
-
-  - name: Install gradle
-    homebrew: name=gradle state=present
+  - name: Install basic tools using brew
+    homebrew: name={{item}} state=present
+    with_items: [wget, jq, git, gawk, mercurial, gradle]
 
   - name: Creates .ssh folder
     shell: mkdir ~/.ssh creates=~/.ssh

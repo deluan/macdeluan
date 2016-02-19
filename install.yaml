@@ -23,6 +23,9 @@
   - name: Install dotfiles
     synchronize: src=dotfiles/ dest=~/ archive=yes checksum=yes times=no
 
+  - name: Install iTerm2 Shell Integration
+    get_url: url=https://iterm2.com/misc/bash_startup.in dest=~/.iterm2_shell_integration.bash
+
   - name: Install RVM
     shell: curl -L https://get.rvm.io | bash -s stable --ruby={{ruby_version}} creates=~/.rvm/scripts/rvm
 
@@ -49,3 +52,16 @@
 
   - name: Install Autocompletion tap
     homebrew_tap: tap=homebrew/completions state=present
+
+  - name: Install Homebrew Cask
+    homebrew_tap: tap=caskroom/cask state=present
+
+  - name: Install Dev tools using brew cask
+    homebrew_cask: name={{item}} state=present
+    with_items: [atom, google-chrome, iterm2-nightly, sourcetree, iconping]#, #virtualbox, vagrant]
+
+  # - name: Install Other Applications using brew cask
+  #   homebrew_cask: name={{item}} state=present
+  #   with_items: [handbrake, vlc, transmission, disk-inventory-x, flux, calibre,
+  #     1password, intellij-idea, plex-media-player, screenhero, mysqlworkbench,
+  #     dropbox, bittorrent-sync]

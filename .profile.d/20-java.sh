@@ -20,10 +20,10 @@ jdk() {
   else
     echo "Available java versions: $JAVA_AVAILABLE_VERSIONS"
     /usr/libexec/java_home -V 2>&1 >/dev/null | grep x86_64
-    echo 
+    echo
     echo "Current version is `java -version 2>&1`"
   fi
 }
 
-[ -f ~/.jdkversion ] && . ~/.jdkversion > /dev/null
-[ ! $JAVA_HOME ] && export JAVA_HOME=$(/usr/libexec/java_home)
+[ -f ~/.jdkversion ] && jdk `cat ~/.jdkversion` > /dev/null
+[ ! "$JAVA_HOME" ] && export JAVA_HOME=$(/usr/libexec/java_home)

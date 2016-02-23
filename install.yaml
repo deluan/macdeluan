@@ -18,7 +18,7 @@
     copy: src=./files/vagrant_rsa dest=~/.ssh/vagrant_rsa mode=0600
 
   - name: Install profile.d scripts
-    synchronize: src=.profile.d dest=~/ delete=yes archive=yes checksum=yes times=no
+    synchronize: src=.profile.d dest=~/ archive=yes checksum=yes times=no
 
   - name: Install dotfiles
     synchronize: src=dotfiles/ dest=~/ archive=yes checksum=yes times=no

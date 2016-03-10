@@ -9,7 +9,7 @@
   tasks:
   - name: Install basic tools using brew
     homebrew: name={{item}} state=present
-    with_items: [wget, jq, git, gawk, mercurial, gradle]
+    with_items: [wget, jq, git, gawk, mercurial, gradle, fzf]
 
   - name: Creates .ssh folder
     shell: mkdir ~/.ssh creates=~/.ssh
@@ -27,7 +27,7 @@
     get_url: url=https://iterm2.com/misc/bash_startup.in dest=~/.iterm2_shell_integration.bash
 
   - name: Install RVM
-    shell: curl -L https://get.rvm.io | bash -s stable --ruby={{ruby_version}} creates=~/.rvm/scripts/rvm
+    shell: curl -L https://get.rvm.io | bash -s stable --ruby={{ruby_version}} --ignore-dotfiles creates=~/.rvm/scripts/rvm
 
   - name: Install NVM
     git: repo=https://github.com/creationix/nvm.git dest=~/.nvm update=no

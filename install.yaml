@@ -9,7 +9,7 @@
   tasks:
   - name: Install basic tools using brew
     homebrew: name={{item}} state=present
-    with_items: [wget, jq, git, gawk, mercurial, gradle, fzf]
+    with_items: [wget, jq, git, gawk, mercurial, gradle, fzf, direnv]
 
   - name: Creates .ssh folder
     shell: mkdir ~/.ssh creates=~/.ssh

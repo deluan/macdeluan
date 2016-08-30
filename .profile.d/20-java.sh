@@ -18,10 +18,11 @@ jdk() {
       MAVEN_OPTS="$MAVEN_OPTS $MAVEN_PERM_SIZE"
     fi
   else
+    echo "Current version is `java -version 2>&1`"
+    echo
     echo "Available java versions: $JAVA_AVAILABLE_VERSIONS"
     /usr/libexec/java_home -V 2>&1 >/dev/null | grep x86_64
     echo
-    echo "Current version is `java -version 2>&1`"
   fi
 }
 

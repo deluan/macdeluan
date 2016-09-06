@@ -4,9 +4,9 @@ export GO15VENDOREXPERIMENT=1
 
 gcd() {
   if [ $1 ]; then
-    PARAM="-q $1 -1"
+    PARAM="-q $1"
   fi
-  cd `find $GOPATH -type d | fzf $PARAM`
+  cd `find $GOPATH/src -type d -not \( -path "*/.git*" -o -path "*/vendor/*" \) | fzf -1 $PARAM`
 }
 
 

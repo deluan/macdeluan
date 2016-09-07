@@ -3,13 +3,13 @@
   hosts: localhost
   vars:
     ruby_version: 2.2.3
-    node_version: 0.10.21
+    node_version: 6.4.0
     local_home: "{{ lookup('env','HOME') }}"
 
   tasks:
   - name: Install basic tools using brew
     homebrew: name={{item}} state=present
-    with_items: [wget, jq, git, gawk, mercurial, gradle, fzf, direnv]
+    with_items: [wget, jq, git, gawk, mercurial, gradle, fzf, direnv, go]
 
   - name: Creates .ssh folder
     shell: mkdir ~/.ssh creates=~/.ssh
@@ -36,7 +36,7 @@
     shell: source ~/.nvm/nvm.sh && nvm install {{node_version}} && nvm alias default {{node_version}} creates=~/.nvm/alias/default
 
   - name: Install DCD
-    npm: executable={{local_home}}/.nvm/v{{node_version}}/bin/npm name=dcd global=yes
+    npm: executable={{local_home}}/.nvm/versions/node/v{{node_version}}/bin/npm name=dcd global=yes
 
   - name: Create bin folder
     file: path=~/bin state=directory

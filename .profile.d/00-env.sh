@@ -8,6 +8,5 @@ export CLICOLOR=1
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 
 export ANDROID_HOME=/usr/local/opt/android-sdk
-export POSTGRES_APP=/Applications/Postgres93.app/Contents/MacOS
 
-export PATH=~/bin:/usr/local/bin:$POSTGRES_APP/bin:$PATH
+export PATH=~/bin:$PATH

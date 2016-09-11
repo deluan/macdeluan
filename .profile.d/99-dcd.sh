@@ -5,7 +5,7 @@ eval "`~/Development/dcd.js/bin/dcd --install-sh dcdc`"
 
 dcdp ()
 {
-    new_path="$(/Users/Thoughtworker/Development/oldies/dcd/dcd ${@})";
+    new_path="$(${HOME}/Development/oldies/dcd/dcd ${@})";
     case $? in
         0) echo -e "\\033[31m${new_path}\\033[0m";
            cd "${new_path}";

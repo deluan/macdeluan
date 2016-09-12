@@ -58,10 +58,10 @@
 
   - name: Install Dev tools using brew cask
     homebrew_cask: name={{item}} state=present
-    with_items: [atom, google-chrome, iterm2-nightly, sourcetree, iconping]#, #virtualbox, vagrant]
+    with_items: [visual-studio-code, google-chrome, iterm2-nightly, sourcetree]
 
   # - name: Install Other Applications using brew cask
   #   homebrew_cask: name={{item}} state=present
   #   with_items: [handbrake, vlc, transmission, disk-inventory-x, flux, calibre,
   #     1password, intellij-idea, plex-media-player, screenhero, mysqlworkbench,
-  #     dropbox, bittorrent-sync]
+  #     dropbox, bittorrent-sync, atom, iconping, virtualbox, vagrant, bitbar]

@@ -15,6 +15,7 @@ function parse_git_branch {
   branch_pattern="On branch ([^${IFS}]*)"
   remote_pattern="Your branch is (.*) of"
   diverge_pattern="Your branch and (.*) have diverged"
+  detached_pattern="HEAD detached at ([^${IFS}]*)"
   if [[ ! ${git_status} =~ "working tree clean" ]]; then
     state="${RED}⚡"
   fi
@@ -32,6 +33,10 @@ function parse_git_branch {
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
     branch=${BASH_REMATCH[1]}
     echo " (${branch})${remote}${state}"
+  fi
+  if [[ ${git_status} =~ ${detached_pattern} ]]; then
+    revision=${BASH_REMATCH[1]}
+    echo " (${revision})${remote}${state}"
   fi
 }
 

@@ -19,7 +19,7 @@ check() {
 for i in `find . -name '.git' -type d` ; do
 	(
     dir=`dirname $i | cut -c3-300`
-    cd $dir
+    cd $dir > /dev/null
 
 		RES=$(git status 2>/dev/null| grep -E '^(Changes to|Changes not|Untracked|Your branch is ahead)')
 

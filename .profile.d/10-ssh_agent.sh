@@ -7,16 +7,14 @@ function __start_agent {
     echo succeeded
     chmod 600 "${SSH_ENV}"
     . "${SSH_ENV}" > /dev/null
-    # /usr/bin/ssh-add;
+    /usr/bin/ssh-add
     /usr/bin/ssh-add ~/.ssh/vagrant_rsa
 }
 
 # Source SSH settings, if applicable
 if [ -f "${SSH_ENV}" ]; then
     . "${SSH_ENV}" > /dev/null
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        __start_agent;
-    }
+    [ -n "`pgrep ssh-agent | grep $SSH_AGENT_PID 2>/dev/null`" ] || __start_agent
 else
     __start_agent;
 fi

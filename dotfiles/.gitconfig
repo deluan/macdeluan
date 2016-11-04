@@ -16,6 +16,7 @@
 	undo-last-commit = reset --soft 'HEAD^'
 	serve = daemon --reuseaddr --base-path=. --export-all --verbose
 	alias = config --get-regexp ^alias\\.
+	bdiff = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 
 [color]
 	diff = auto

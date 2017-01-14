@@ -8,4 +8,6 @@ export HISTCONTROL=ignorespace
 
 export ANDROID_HOME=/usr/local/opt/android-sdk
 
-export PATH=~/bin:$PATH
+export PATH=~/bin:/usr/local/sbin:$PATH
+
+[ -f ~/.cdpath ] && source ~/.cdpath

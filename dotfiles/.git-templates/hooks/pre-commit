@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Email must be set locally
+if [ -z `git config --local user.email` ]; then
+    echo "Your email is not defined. Please run:"
+    echo "    git set-user Name email@example.com"
+    exit 1
+fi
+
+# Add other post-commit hooks

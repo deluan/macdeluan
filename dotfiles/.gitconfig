@@ -35,4 +35,4 @@
 	excludesfile = /Users/deluan/.gitignore_global
 
 [init]
-	templatedir = '~/.git-templates'
+	templatedir = ~/.git-templates

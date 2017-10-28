@@ -6,7 +6,10 @@ export JAVA_AVAILABLE_VERSIONS=
 
 jdk() {
   if [ ! "$JAVA_AVAILABLE_VERSIONS" ]; then
-    JAVA_AVAILABLE_VERSIONS=$(/usr/libexec/java_home -V 2>&1 >/dev/null | grep x86_64 | cut -f 2 -d. | sort | tr '\n' ' ')
+    JAVA_AVAILABLE_VERSIONS=$(/usr/libexec/java_home -V 2>&1 >/dev/null | \
+    JAVA_AVAILABLE_VERSIONS=$(/usr/libexec/java_home -V 2>&1 >/dev/null | \
+        grep x86_64 | cut -f 2 -dE | tr -d " " | cut -f 1 -d'"' | cut -f 1 -d "." | \
+        sort | tr '\n\' ' ')
   fi
 
   if [[ $JAVA_AVAILABLE_VERSIONS =~ $1 ]]; then

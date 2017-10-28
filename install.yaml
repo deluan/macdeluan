@@ -7,6 +7,9 @@
     local_home: "{{ lookup('env','HOME') }}"
 
   tasks:
+  - name: Install Java tools
+    homebrew_cask: name=java state=present
+
   - name: Install basic tools using brew
     homebrew: name={{item}} state=present
     with_items: [wget, jq, git, gawk, mercurial, gradle, fzf, direnv, go, pyenv]
@@ -35,9 +38,6 @@
   - name: Install Node
     shell: source ~/.nvm/nvm.sh && nvm install {{node_version}} && nvm alias default {{node_version}} creates=~/.nvm/alias/default
 
-  - name: Install DCD
-    npm: executable={{local_home}}/.nvm/versions/node/v{{node_version}}/bin/npm name=dcd global=yes
-
   - name: Create bin folder
     file: path=~/bin state=directory
 
@@ -53,12 +53,15 @@
   - name: Install Autocompletion tap
     homebrew_tap: tap=homebrew/completions state=present
 
+  - name: Install Fonts tap
+    homebrew_tap: tap=caskroom/fonts state=present
+
   - name: Install Homebrew Cask
     homebrew_tap: tap=caskroom/cask state=present
 
   - name: Install Dev tools using brew cask
     homebrew_cask: name={{item}} state=present
-    with_items: [visual-studio-code, sourcetree]
+    with_items: [font-fira-code, visual-studio-code, sourcetree]
 
   # - name: Install Other Applications using brew cask
   #   homebrew_cask: name={{item}} state=present

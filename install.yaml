@@ -20,6 +20,9 @@
   - name: Install Vagrant Insecure Private Key
     copy: src=./files/vagrant_rsa dest=~/.ssh/vagrant_rsa mode=0600
 
+  - name: Install gst script
+    copy: src=./files/gst dest=~/bin/gst mode=0755
+
   - name: Install profile.d scripts
     synchronize: src=.profile.d dest=~/ archive=yes checksum=yes times=no
 

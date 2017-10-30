@@ -12,7 +12,7 @@
 
   - name: Install basic tools using brew
     homebrew: name={{item}} state=present
-    with_items: [wget, jq, git, gawk, mercurial, gradle, fzf, direnv, go, pyenv]
+    with_items: [wget, jq, git, gawk, mercurial, gradle, fzf, direnv, go, pyenv, yarn]
 
   - name: Creates .ssh folder
     shell: mkdir ~/.ssh creates=~/.ssh

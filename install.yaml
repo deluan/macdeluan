@@ -3,7 +3,7 @@
   hosts: localhost
   vars:
     ruby_version: 2.2.3
-    node_version: 6.4.0
+    node_version: 6
     local_home: "{{ lookup('env','HOME') }}"
 
   tasks:

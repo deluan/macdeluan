@@ -30,7 +30,7 @@
     synchronize: src=dotfiles/ dest=~/ archive=yes checksum=yes times=no
 
   - name: Install iTerm2 Shell Integration
-    get_url: url=https://iterm2.com/misc/bash_startup.in dest=~/.iterm2_shell_integration.bash
+    get_url: url=https://iterm2.com/shell_integration/bash dest=~/.iterm2_shell_integration.bash
 
   - name: Install RVM
     shell: curl -L https://get.rvm.io | bash -s stable --ruby={{ruby_version}} --ignore-dotfiles creates=~/.rvm/scripts/rvm

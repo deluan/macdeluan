@@ -40,7 +40,7 @@ function parse_git_branch {
   fi
 }
 
-function prompt_func() {
+function _git_prompt_hook() {
     previous_return_value=$?;
     # prompt="${TITLEBAR}$BLUE[$RED\w$GREEN$(__git_ps1)$YELLOW$(git_dirty_flag)$BLUE]$COLOR_NONE "
     prompt="${TITLEBAR}${BLUE}[${RED}\W${GREEN}$(parse_git_branch)${BLUE}]${COLOR_NONE} "
@@ -52,4 +52,4 @@ function prompt_func() {
     fi
 }
 
-PROMPT_COMMAND=prompt_func
+__add_prompt_command "_git_prompt_hook"

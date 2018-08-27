@@ -1,7 +1,7 @@
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-	. $(brew --prefix)/etc/bash_completion
-fi
+export BREW_PREFIX=`brew --prefix`
 
-if [ -f /usr/local/bin/aws ]; then
-	complete -C aws_completer aws
-fi
+COMPLETIONS=`ls ${BREW_PREFIX}/etc/bash_completion.d`
+
+for cmd in $COMPLETIONS; do
+	eval "${cmd}(){ unset -f ${cmd}; . ${BREW_PREFIX}/etc/bash_completion; ${cmd} \$@; }"
+done

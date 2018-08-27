@@ -10,4 +10,11 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 
 export PATH=~/bin:/usr/local/sbin:$PATH
 
-[ -f ~/.cdpath ] && source ~/.cdpath
+[ -f ~/.cdpath ] && CDPATH=`cat ~/.cdpath`:$CDPATH
+
+__add_prompt_command() {
+    cmd=$1
+    if ! [[ "$PROMPT_COMMAND" =~ $cmd ]]; then
+      PROMPT_COMMAND="$cmd;$PROMPT_COMMAND";
+    fi
+}

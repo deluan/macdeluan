@@ -30,7 +30,8 @@
     synchronize: src=dotfiles/ dest=~/ archive=yes checksum=yes times=no
 
   - name: Install iTerm2 Shell Integration
-    get_url: url=https://iterm2.com/shell_integration/bash dest=~/.iterm2_shell_integration.bash
+    shell: curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash creates=~/.iterm2_shell_integration.bash
+    # get_url: url=https://iterm2.com/shell_integration/bash dest=~/.iterm2_shell_integration.bash
 
   - name: Install RVM
     shell: curl -L https://get.rvm.io | bash -s stable --ruby={{ruby_version}} --ignore-dotfiles creates=~/.rvm/scripts/rvm
@@ -57,18 +58,20 @@
     homebrew_tap: tap=homebrew/completions state=present
 
   - name: Install Fonts tap
-    homebrew_tap: tap=caskroom/fonts state=present
+    shell: brew tap caskroom/fonts creates=/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask-fonts
+    # homebrew_tap: tap=caskroom/fonts state=present
 
   - name: Install Homebrew Cask
-    homebrew_tap: tap=caskroom/cask state=present
+    shell: brew tap caskroom/cask creates=/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask
+    # homebrew_tap: tap=caskroom/cask state=present
 
   - name: Install Dev tools using brew cask
     homebrew_cask: name={{item}} state=present
-    with_items: [font-fira-code, visual-studio-code, sourcetree]
+    with_items: [font-fira-code]
 
   # - name: Install Other Applications using brew cask
   #   homebrew_cask: name={{item}} state=present
   #   with_items: [google-chrome, iterm2-nightly, handbrake, vlc, transmission, 
-  #     disk-inventory-x, flux, calibre,
+  #     disk-inventory-x, flux, calibre, visual-studio-code, sourcetree
   #     1password, intellij-idea, plex-media-player, screenhero, mysqlworkbench,
   #     dropbox, bittorrent-sync, atom, iconping, virtualbox, vagrant, bitbar]

@@ -1,55 +1,12 @@
-        RED="\[\033[0;31m\]"
-     YELLOW="\[\033[0;33m\]"
- 	  GREEN="\[\033[0;32m\]"
-       BLUE="\[\033[0;34m\]"
-  LIGHT_RED="\[\033[1;31m\]"
-LIGHT_GREEN="\[\033[1;32m\]"
-      WHITE="\[\033[1;37m\]"
- LIGHT_GRAY="\[\033[0;37m\]"
- COLOR_NONE="\[\e[0m\]"
+# Started using `bash-git-prompt`, less code to mantain
+# last version of my custom code: 
+# https://github.com/deluan/macdeluan/blob/0b5e7e302c25927f8ea63e622dffe555fe8cc97a/.profile.d/91-git_prompt.sh
 
-function parse_git_branch {
+GIT_PROMPT_THEME=Custom
 
-  git rev-parse --git-dir &> /dev/null
-  git_status="$(git status 2> /dev/null)"
-  branch_pattern="On branch ([^${IFS}]*)"
-  remote_pattern="Your branch is (.*) of"
-  diverge_pattern="Your branch and (.*) have diverged"
-  detached_pattern="HEAD detached at ([^${IFS}]*)"
-  if [[ ! ${git_status} =~ "working tree clean" ]]; then
-    state="${RED}⚡"
-  fi
-  # add an else if or two here if you want to get more specific
-  if [[ ${git_status} =~ ${remote_pattern} ]]; then
-    if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-      remote="${YELLOW}↑"
-    else
-      remote="${YELLOW}↓"
-    fi
-  fi
-  if [[ ${git_status} =~ ${diverge_pattern} ]]; then
-    remote="${YELLOW}↕"
-  fi
-  if [[ ${git_status} =~ ${branch_pattern} ]]; then
-    branch=${BASH_REMATCH[1]}
-    echo " (${branch})${remote}${state}"
-  fi
-  if [[ ${git_status} =~ ${detached_pattern} ]]; then
-    revision=${BASH_REMATCH[1]}
-    echo " (${revision})${remote}${state}"
-  fi
-}
+BREW_PREFIX=`brew --prefix`
+if [ -f "${BREW_PREFIX}/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+  __GIT_PROMPT_DIR=${BREW_PREFIX}/opt/bash-git-prompt/share
+  source "${__GIT_PROMPT_DIR}/gitprompt.sh"
+fi
 
-function _git_prompt_hook() {
-    previous_return_value=$?;
-    # prompt="${TITLEBAR}$BLUE[$RED\w$GREEN$(__git_ps1)$YELLOW$(git_dirty_flag)$BLUE]$COLOR_NONE "
-    prompt="${TITLEBAR}${BLUE}[${RED}\W${GREEN}$(parse_git_branch)${BLUE}]${COLOR_NONE} "
-    if test $previous_return_value -eq 0
-    then
-        PS1="${prompt}➔ "
-    else
-        PS1="${prompt}${RED}➔${COLOR_NONE} "
-    fi
-}
-
-__add_prompt_command "_git_prompt_hook"

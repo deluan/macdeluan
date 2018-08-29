@@ -1,5 +1,6 @@
 alias ll='ls -la'
 alias webserver='python -m SimpleHTTPServer'
+alias vault-auth='vault auth --method=github'
 
 export EDITOR=vi
 export CLICOLOR=1

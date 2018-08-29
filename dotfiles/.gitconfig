@@ -26,6 +26,11 @@
 	alias = config --get-regexp ^alias\\.
 	bdiff = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	out = log origin/master..HEAD
+	ssave = stash save
+	slist = stash list
+	sshow = "!f() { git stash show stash^{/$*} -p; }; f"
+	sapply = "!f() { git stash apply stash^{/$*}; }; f"
+	sdrop = "!f() { git stash drop stash^{$*}; }; f"
 
 [color]
 	diff = auto

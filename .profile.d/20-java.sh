@@ -29,5 +29,23 @@ jdk() {
   fi
 }
 
-[ -f ~/.jdkversion ] && jdk `cat ~/.jdkversion` > /dev/null
 [ ! "$JAVA_HOME" ] && export JAVA_HOME=$(/usr/libexec/java_home)
+
+java() {
+    unset -f java
+    [ -f ~/.jdkversion ] && jdk `cat ~/.jdkversion`
+    java "$@"
+}
+
+javac() {
+    unset -f javac
+    [ -f ~/.jdkversion ] && jdk `cat ~/.jdkversion`
+    javac "$@"
+}
+
+jar() {
+    unset -f jar
+    [ -f ~/.jdkversion ] && jdk `cat ~/.jdkversion`
+    jar "$@"
+}
+

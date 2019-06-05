@@ -19,3 +19,10 @@ __add_prompt_command() {
       PROMPT_COMMAND="$cmd;$PROMPT_COMMAND";
     fi
 }
+
+serveo() {
+  PORT=${1:-3000}
+  RPORT=${2:80}
+  echo "Mapping port ${PORT} to ${RPORT} on Serveo.net"
+  ssh -R ${RPORT}:localhost:${PORT} serveo.net
+}

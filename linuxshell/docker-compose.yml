@@ -1,0 +1,11 @@
+version: '3'
+services:
+  workstation:
+    build: .
+    command: bash
+    ports:
+      - '22:22'
+    volumes:
+      - ~/Development:/home/deluan/Development
+      - ~/TW:/home/deluan/tw
+    hostname: DeluanX.local

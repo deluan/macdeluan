@@ -3,7 +3,6 @@
   hosts: localhost
   vars:
     ruby_version: 2.2.3
-    node_version: 6
     local_home: "{{ lookup('env','HOME') }}"
 
   tasks:
@@ -18,7 +17,22 @@
 
   - name: Install basic tools using brew
     homebrew: name={{item}} state=present
-    with_items: [wget, jq, git, gawk, mercurial, gradle, fzf, direnv, go, pyenv, yarn, bash-git-prompt, duckdns]
+    with_items: [wget, jq, git, gawk, mercurial, gradle, fzf, direnv, go, hugo, tree, duckdns, zsh, zplug]
+
+  # - name: Add ZSH to allowed shells
+  #   lineinfile: 
+  #     path: /etc/shells
+  #     line: /usr/local/bin/zsh
+  #   become: true
+
+  # - name: Set ZSH as default shell
+  #   shell: dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
+  #   become: root
+
+  - name: Install Zplug
+    git:
+      repo: https://github.com/zplug/zplug
+      dest: ~/.zplug
 
   - name: Creates .ssh folder
     shell: mkdir ~/.ssh creates=~/.ssh
@@ -26,36 +40,34 @@
   - name: Install gst script
     copy: src=./files/gst dest=~/bin/gst mode=0755
 
-  - name: Install profile.d scripts
-    synchronize: src=.profile.d dest=~/ archive=yes checksum=yes times=no
-
   - name: Install dotfiles
-    synchronize: src=dotfiles/ dest=~/ archive=yes checksum=yes times=no
+    synchronize: 
+      src: dotfiles/
+      dest: ~/ 
+      archive: yes 
+      checksum: yes
+      times: no
+      rsync_opts:
+        - "--exclude=.zshrc"
 
-  - name: Install iTerm2 Shell Integration
-    shell: curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash creates=~/.iterm2_shell_integration.bash
-    # get_url: url=https://iterm2.com/shell_integration/bash dest=~/.iterm2_shell_integration.bash
+  - name: Install .zshrc
+    file:
+      src: $PWD/dotfiles/.zshrc
+      dest: ~/.zshrc
+      state: link
+      force: yes
 
   - name: Install RVM
     shell: curl -L https://get.rvm.io | bash -s stable --ruby={{ruby_version}} --ignore-dotfiles creates=~/.rvm/scripts/rvm
 
-  - name: Install NVM
-    git: repo=https://github.com/creationix/nvm.git dest=~/.nvm update=no
-
-  - name: Install Node
-    shell: source ~/.nvm/nvm.sh && nvm install {{node_version}} && nvm alias default {{node_version}} creates=~/.nvm/alias/default
+  - name: Install FNM
+    shell: curl -fsSL https://github.com/Schniz/fnm/raw/master/.ci/install.sh | bash -s -- --skip-shell creates=~/.fnm
 
   - name: Create bin folder
     file: path=~/bin state=directory
 
   - name: Install Grails.sh
     homebrew: name=grails.sh state=present
-
-  - name: Install Bash Autocompletion
-    homebrew: name=bash-completion state=present
-
-  - name: Install Autocompletion tap
-    homebrew_tap: tap=homebrew/completions state=present
 
   - name: Install Fonts tap
     shell: brew tap caskroom/fonts creates=/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask-fonts

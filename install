@@ -1,13 +1,10 @@
 #!/bin/bash
 
 # Install HomeBrew
-if ! which brew; then
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
+which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # Install Ansible
-if ! which ansible; then
-  brew install ansible
-fi
+which ansible || brew install ansible
 
+# Provision everything else
 ansible-playbook install.yaml

@@ -2,10 +2,13 @@ version: '3'
 services:
   workstation:
     build: .
-    command: bash
+    # command: bash
     ports:
       - '22:22'
     volumes:
       - ~/Development:/home/deluan/Development
       - ~/TW:/home/deluan/tw
+      # - linuxshell_data:/home/deluan/.linuxshell
+      # - :/home/deluan/.fnm
+      # - :/home/deluan/.zsh_history
     hostname: DeluanX.local

@@ -28,7 +28,7 @@
 	out = log origin/master..HEAD
 	ssave = stash save
 	slist = stash list
-	sshow = "!f() { git stash show stash^{/$*} -p; }; f"
+	sshow = "!f() { git stash show $* -p; }; f"
 	sapply = "!f() { git stash apply stash^{/$*}; }; f"
 	sdrop = "!f() { git stash drop stash^{$*}; }; f"
 

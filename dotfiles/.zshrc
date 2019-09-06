@@ -12,11 +12,15 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 # zplug "${MACDELUAN_FOLDER}/dracula", from:local, as:theme
 zplug "romkatv/powerlevel10k", as:theme
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_last"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs status)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs status custom_proxy)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 POWERLEVEL9K_STATUS_OK=false
 POWERLEVEL9K_STATUS_CROSS=true
 POWERLEVEL9K_VCS_BACKENDS=(git hg)
+
+POWERLEVEL9K_CUSTOM_PROXY="tproxy prompt 🐌"
+POWERLEVEL9K_CUSTOM_PROXY_BACKGROUND="blue"
+POWERLEVEL9K_CUSTOM_PROXY_FOREGROUND="yellow"
 
 # Plugins
 zplug "deluan/vanilli.sh"
@@ -56,9 +60,10 @@ time zplug load #--verbose
 
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+
+# # tabtab source for serverless package
+# # uninstall by removing these lines or running `tabtab uninstall serverless`
+# [[ -f /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+# # tabtab source for sls package
+# # uninstall by removing these lines or running `tabtab uninstall sls`
+# [[ -f /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh

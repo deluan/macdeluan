@@ -25,8 +25,8 @@ POWERLEVEL9K_CUSTOM_PROXY_FOREGROUND="yellow"
 # Plugins
 zplug "deluan/vanilli.sh"
 
-zplug "modules/ssh",                          from:prezto
-zplug "plugins/git-auto-fetch",               from:oh-my-zsh
+# zplug "modules/ssh",                          from:prezto
+# zplug "plugins/git-auto-fetch",               from:oh-my-zsh
 zplug "changyuheng/fz",                       defer:1
 zplug "rupa/z",                               use:z.sh
 zplug "supercrabtree/k"
@@ -38,8 +38,9 @@ zplug "gradle/gradle-completion"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-syntax-highlighting",    defer:2
 zplug "lukechilds/zsh-better-npm-completion", defer:2
+zplug "zdharma/fast-syntax-highlighting", defer:2
+# zplug "zsh-users/zsh-syntax-highlighting",    defer:2
 
 zplug "deluan/macos-jdk",                     depth:0
 # zplug "~/Development/macos-jdk", from:local
@@ -67,3 +68,5 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 # # tabtab source for sls package
 # # uninstall by removing these lines or running `tabtab uninstall sls`
 # [[ -f /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+# fnm
+eval "$(fnm env --multi)"

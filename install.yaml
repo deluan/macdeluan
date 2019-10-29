@@ -16,8 +16,8 @@
     homebrew_tap: tap=jzelinskie/duckdns state=present
 
   - name: Install basic tools using brew
-    homebrew: name={{item}} state=present
-    with_items: [wget, jq, git, gawk, mercurial, gradle, fzf, direnv, go, hugo, tree, duckdns, zsh, zplug]
+    homebrew: 
+      name: ['wget', 'jq', 'git', 'gawk', 'mercurial', 'gradle', 'fzf', 'direnv', 'go', 'hugo', 'tree', 'duckdns', 'zsh', 'zplug']
 
   # - name: Add ZSH to allowed shells
   #   lineinfile: 
@@ -33,6 +33,7 @@
     git:
       repo: https://github.com/zplug/zplug
       dest: ~/.zplug
+      update: no
 
   - name: Creates .ssh folder
     shell: mkdir ~/.ssh creates=~/.ssh
@@ -61,7 +62,7 @@
     shell: curl -L https://get.rvm.io | bash -s stable --ruby={{ruby_version}} --ignore-dotfiles creates=~/.rvm/scripts/rvm
 
   - name: Install FNM
-    shell: curl -fsSL https://github.com/Schniz/fnm/raw/master/.ci/install.sh | bash -s -- --skip-shell creates=~/.fnm
+    homebrew: name=Schniz/tap/fnm state=present
 
   - name: Create bin folder
     file: path=~/bin state=directory
@@ -70,12 +71,10 @@
     homebrew: name=grails.sh state=present
 
   - name: Install Fonts tap
-    shell: brew tap caskroom/fonts creates=/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask-fonts
-    # homebrew_tap: tap=caskroom/fonts state=present
+    homebrew_tap: name=homebrew/cask-fonts state=present
 
   - name: Install Homebrew Cask
     shell: brew tap caskroom/cask creates=/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask
-    # homebrew_tap: tap=caskroom/cask state=present
 
   - name: Install Dev tools using brew cask
     homebrew_cask: name={{item}} state=present

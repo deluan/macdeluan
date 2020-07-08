@@ -38,6 +38,9 @@
   - name: Creates .ssh folder
     shell: mkdir ~/.ssh creates=~/.ssh
 
+  - name: Create bin folder
+    file: path=~/bin state=directory
+
   - name: Install gst script
     copy: src=./files/gst dest=~/bin/gst mode=0755
 
@@ -58,14 +61,11 @@
       state: link
       force: yes
 
-  - name: Install RVM
-    shell: curl -L https://get.rvm.io | bash -s stable --ruby={{ruby_version}} --ignore-dotfiles creates=~/.rvm/scripts/rvm
+  # - name: Install RVM
+  #   shell: curl -L https://get.rvm.io | bash -s stable --ruby={{ruby_version}} --ignore-dotfiles creates=~/.rvm/scripts/rvm
 
   - name: Install FNM
     homebrew: name=Schniz/tap/fnm state=present
-
-  - name: Create bin folder
-    file: path=~/bin state=directory
 
   - name: Install Grails.sh
     homebrew: name=grails.sh state=present

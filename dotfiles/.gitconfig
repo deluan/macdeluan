@@ -21,11 +21,12 @@
 	who = "!f() { user=`git config user.name`; email=`git config user.email`; echo \"$user <$email>\"; }; f"
 	set-user = "!f() { git config --local user.name \"$1\" && git config --local user.email \"$2\"; }; f"
 	undo-last-commit = reset --soft 'HEAD^'
-	undo-last-commit-hard = reset --hard 'HEAD^'
+	hard-undo-last-commit = reset --hard 'HEAD^'
 	serve = daemon --reuseaddr --base-path=. --export-all --verbose
 	alias = config --get-regexp ^alias\\.
 	bdiff = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-	out = log origin/master..HEAD
+	out = "!f() { git ll `git rev-parse --abbrev-ref --symbolic-full-name @{u}`..HEAD; }; f"
+	# out = log origin/master..HEAD
 	ssave = stash save
 	slist = stash list
 	sshow = "!f() { git stash show $* -p; }; f"
@@ -48,3 +49,10 @@
 
 [init]
 	templatedir = ~/.git-templates
+	defaultBranch = main
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

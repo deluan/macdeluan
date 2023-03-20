@@ -1,4 +1,4 @@
-export PATH=~/bin:/usr/local/sbin:$PATH
+export PATH=~/bin:~/.local/bin:/usr/local/sbin:$PATH
 export ZSHRC=`echo ~/.zshrc(:A)`
 export MACDELUAN_FOLDER=$(dirname `dirname $ZSHRC`)
 
@@ -12,7 +12,7 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 # zplug "${MACDELUAN_FOLDER}/dracula", from:local, as:theme
 zplug "romkatv/powerlevel10k", as:theme
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_last"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs status custom_proxy)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs status)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 POWERLEVEL9K_STATUS_OK=false
 POWERLEVEL9K_STATUS_CROSS=true
@@ -69,4 +69,15 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 # # uninstall by removing these lines or running `tabtab uninstall sls`
 # [[ -f /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
 # fnm
-eval "$(fnm env --multi)"
+eval "$(fnm env --use-on-cd)"
+
+setopt HIST_IGNORE_SPACE
+
+export FPATH=$FPATH:~/.completions
+rm -f ~/.zcompdump
+autoload -U compinit
+compinit
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+[ -s "/Users/deluan/.jabba/jabba.sh" ] && source "/Users/deluan/.jabba/jabba.sh"

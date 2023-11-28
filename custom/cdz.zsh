@@ -18,7 +18,7 @@ cd() {
     builtin cd $1
   else
     called_z=1
-    z $1 && echo $PWD
+    _z $1 && echo $PWD
     called_z=0
   fi
 }

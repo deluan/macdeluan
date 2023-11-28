@@ -7,5 +7,6 @@ alias ls='ls -G'
 alias lsa='ls -lah'
 alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias ddc='docker-compose'
-alias tsh='f(){ssh -t $@ "tmux -CC new-session -A -s ssh_tmux"}; f'
+alias tsh='f(){ssh -t $@ "tmux -u -CC new-session -A -s ssh_tmux"}; f'
 alias vauth='vault login --method=github'
+alias yt="yt-dlp --embed-thumbnail --embed-subs -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]'"

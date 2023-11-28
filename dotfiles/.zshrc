@@ -1,83 +1,47 @@
-export PATH=~/bin:~/.local/bin:/usr/local/sbin:$PATH
-export ZSHRC=`echo ~/.zshrc(:A)`
-export MACDELUAN_FOLDER=$(dirname `dirname $ZSHRC`)
-
-# Zplug initialization
-export ZPLUG_HOME=~/.zplug
-source $ZPLUG_HOME/init.zsh
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-
-# Theme configuration
-# zplug "dracula/zsh", as:theme
-# zplug "${MACDELUAN_FOLDER}/dracula", from:local, as:theme
-zplug "romkatv/powerlevel10k", as:theme
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_last"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs status)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
-POWERLEVEL9K_STATUS_OK=false
-POWERLEVEL9K_STATUS_CROSS=true
-POWERLEVEL9K_VCS_BACKENDS=(git hg)
-
-POWERLEVEL9K_CUSTOM_PROXY="tproxy prompt 🐌"
-POWERLEVEL9K_CUSTOM_PROXY_BACKGROUND="blue"
-POWERLEVEL9K_CUSTOM_PROXY_FOREGROUND="yellow"
-
-# Plugins
-zplug "deluan/vanilli.sh"
-
-# zplug "modules/ssh",                          from:prezto
-# zplug "plugins/git-auto-fetch",               from:oh-my-zsh
-zplug "changyuheng/fz",                       defer:1
-zplug "rupa/z",                               use:z.sh
-zplug "supercrabtree/k"
-zplug "laggardkernel/zsh-iterm2"
-zplug "micrenda/zsh-nohup"
-zplug "docker/cli",                           use:"contrib/completion/zsh"
-zplug "docker/compose",                       use:"contrib/completion/zsh"
-zplug "gradle/gradle-completion"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "lukechilds/zsh-better-npm-completion", defer:2
-zplug "zdharma/fast-syntax-highlighting", defer:2
-# zplug "zsh-users/zsh-syntax-highlighting",    defer:2
-
-zplug "deluan/macos-jdk",                     depth:0
-# zplug "~/Development/macos-jdk", from:local
-
-# Load my customizations as plugins
-if [ -d ${MACDELUAN_FOLDER}/custom ]; then
-  zplug "${MACDELUAN_FOLDER}/custom", from:local, use:"*", defer:3
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
+  print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
+  command mkdir -p "$HOME/.zi" && command chmod go-rwX "$HOME/.zi"
+  command git clone -q --depth=1 --branch "main" https://github.com/z-shell/zi "$HOME/.zi/bin" && \
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+    print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
-time zplug load #--verbose
 
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+source "$HOME/.zi/bin/zi.zsh"
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
+# examples here -> https://wiki.zshell.dev/ecosystem/category/-annexes
+zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
 
-# # tabtab source for serverless package
-# # uninstall by removing these lines or running `tabtab uninstall serverless`
-# [[ -f /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
-# # tabtab source for sls package
-# # uninstall by removing these lines or running `tabtab uninstall sls`
-# [[ -f /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/deluan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
-# fnm
-eval "$(fnm env --use-on-cd)"
+zi ice depth=1; zi light romkatv/powerlevel10k
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+zi light changyuheng/fz
+zi light rupa/z
+zi light zsh-users/zsh-autosuggestions
+zi light zsh-users/zsh-completions
+zi light zsh-users/zsh-history-substring-search
+zi light z-shell/F-Sy-H
+
+
+source ~/macdeluan/custom/aliases.sh
+zi snippet ~/macdeluan/custom/cdz.zsh
+zi snippet ~/macdeluan/custom/direnv_loader.sh
+zi snippet ~/macdeluan/custom/fnm_loader.sh
+zi snippet ~/macdeluan/custom/golang_cd.sh
+
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
 setopt HIST_IGNORE_SPACE
 
-export FPATH=$FPATH:~/.completions
-rm -f ~/.zcompdump
-autoload -U compinit
-compinit
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# eval "$(fnm env --use-on-cd)"
 
-[ -s "/Users/deluan/.jabba/jabba.sh" ] && source "/Users/deluan/.jabba/jabba.sh"
+export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS":$PATH
